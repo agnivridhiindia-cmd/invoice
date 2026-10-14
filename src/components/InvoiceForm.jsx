@@ -1,4 +1,4 @@
-import { FileText, Package, Printer, RotateCcw, Sparkles, Plus, Trash2, CheckCircle2, ShieldCheck, CreditCard, Eye, EyeOff, Zap } from "lucide-react";
+import { FileText, Package, Printer, RotateCcw, Plus, Trash2, CreditCard, Eye, EyeOff, Zap } from "lucide-react";
 import { INVOICE_TYPES } from "../utils/constants.js";
 import { getPlaceOfSupplyWithCode } from "../utils/gstUtils.js";
 
@@ -14,8 +14,6 @@ function formatDisplayAmount(val) {
 }
 
 export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset }) {
-  const isGstInvoice = invoice.type === "GST Invoice";
-
   // Ensure services array exists
   const services = invoice.services && invoice.services.length > 0
     ? invoice.services
@@ -26,7 +24,7 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
           hsnSac: invoice.hsnSac || "998311",
           quantity: Number(invoice.quantity) || 1,
           rate: Number(invoice.rate) || 10000,
-          gstPercent: isGstInvoice ? 0 : Number(invoice.gstPercent) || 18,
+          gstPercent: Number(invoice.gstPercent) || 18,
           showOnInvoice: true,
           includeInTotal: true,
           chargePayment: true
@@ -45,7 +43,7 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
       const qty = Number(srv.quantity) || 1;
       const rate = Number(srv.rate) || 0;
       const itemTaxable = qty * rate;
-      const gstPercent = isGstInvoice ? 0 : Number(srv.gstPercent !== undefined ? srv.gstPercent : 18);
+      const gstPercent = Number(srv.gstPercent !== undefined ? srv.gstPercent : 18);
       const itemGst = itemTaxable * (gstPercent / 100);
 
       taxableAmount += itemTaxable;
@@ -60,7 +58,7 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
   const handleChange = (field, value) => {
     let updated = { ...invoice, [field]: value };
 
-    // When invoice type changes (Proforma / Tax / GST)
+    // When invoice type changes
     if (field === "type") {
       const selectedType = INVOICE_TYPES.find((t) => t.name === value);
       if (selectedType) {
@@ -94,7 +92,7 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
       hsnSac: "998311",
       quantity: 1,
       rate: 10000,
-      gstPercent: isGstInvoice ? 0 : 18,
+      gstPercent: 18,
       showOnInvoice: true,
       includeInTotal: true,
       chargePayment: true
@@ -401,7 +399,7 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
               const qty = Number(srv.quantity) || 1;
               const rate = Number(srv.rate) || 0;
               const itemTaxable = qty * rate;
-              const gstPercent = isGstInvoice ? 0 : Number(srv.gstPercent !== undefined ? srv.gstPercent : 18);
+              const gstPercent = Number(srv.gstPercent !== undefined ? srv.gstPercent : 18);
               const itemGst = itemTaxable * (gstPercent / 100);
               const itemTotal = itemTaxable + itemGst;
 
@@ -498,8 +496,7 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
                       <label className="block text-[10px] font-bold text-gray-600 mb-0.5">GST %</label>
                       <input
                         type="number"
-                        disabled={isGstInvoice}
-                        value={isGstInvoice ? 0 : srv.gstPercent}
+                        value={srv.gstPercent !== undefined ? srv.gstPercent : 18}
                         onChange={(e) => handleServiceFieldChange(srv.id, "gstPercent", Number(e.target.value))}
                         className="form-input w-full text-xs font-mono"
                       />
@@ -581,6 +578,23 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
                 placeholder="Payment terms..."
                 className="form-textarea w-full text-xs"
               />
+            </div>
+
+            {/* Authorised Stamp Toggle */}
+            <div className="flex items-center justify-between p-2.5 bg-gray-50 border border-gray-200 rounded-lg">
+              <div>
+                <span className="text-xs font-bold text-gray-800">Authorised Signatory Stamp</span>
+                <p className="text-[10px] text-gray-500">Display official AgniVridhi seal on this Proforma Invoice</p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={!!invoice.showStamp}
+                  onChange={(e) => handleChange("showStamp", e.target.checked)}
+                  className="sr-only peer"
+                />
+                <div className="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-indigo-600"></div>
+              </label>
             </div>
           </div>
         </div>

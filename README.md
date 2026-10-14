@@ -1,25 +1,20 @@
-# Universal Invoice Studio (Standalone Web Application)
+# AgniVridhi Proforma Studio (Standalone Web Application)
 
-A modern, portable, client-free invoice generation web application.
+A modern, portable, client-free Proforma invoice generation web application for AgniVridhi India.
 
 ---
 
 ## 🌟 Key Features
 
-1. **No Explicit Client Selection Required**:
-   - **Free-form Client Entry**: Type any buyer name, company, address, GSTIN, PAN, and contact details directly on the invoice without needing a pre-registered client database.
-   - **1-Click "Cash Sale" Button**: Fills standard walk-in / retail counter customer details in a single click.
-   - **Smart Text Parser**: Paste any unstructured address block, WhatsApp message, or email signature to automatically extract Company Name, GSTIN, PAN, Phone, Email, and State.
-   - **Recent Buyers Memory**: Frequently billed recipients are remembered in browser `localStorage` as quick 1-click chip buttons.
+1. **Dedicated Proforma Invoicing**:
+   - Generates official AgniVridhi India Proforma Invoices with PI prefix (`PI-YYYYMMDD-XXX`).
+   - Intra-state (CGST + SGST) vs Inter-state (IGST) tax calculation based on Place of Supply.
+   - Dynamic multi-service row items with individual toggles for "Show on Invoice" and "Include in Total".
+   - Optional toggle for official Authorised Signatory Stamp.
 
-2. **All Types of Invoices Supported**:
-   - **GST Tax Invoice (B2B & B2C)**: Real-time tax determination (Intra-state CGST + SGST vs Inter-state IGST based on State/Place of Supply codes).
-   - **Proforma Invoice**: Advance quotation and milestone billing.
-   - **Commercial / Export Invoice**: Multi-currency support (₹ INR, $ USD, € EUR, £ GBP, AED, etc.), Letter of Undertaking (LUT) reference, Port of Loading, and Country of Destination.
-   - **Quotation / Estimate**: Formal proposals with valid-until dates.
-   - **Bill of Supply**: For composition dealers or exempt/nil-rated goods.
-   - **Cash Memo / Payment Receipt**: Immediate settlement receipts.
-   - **Delivery Challan**: Material movement and dispatch documentation.
+2. **No Explicit Client Selection Required**:
+   - **Free-form Client Entry**: Type any buyer name, company, address, GSTIN, PAN, and contact details directly on the invoice without needing a pre-registered client database.
+   - **Auto Place of Supply**: Automatically detects Place of Supply and GST code from client GSTIN or State.
 
 3. **Dynamic Live Features**:
    - **Instant Live UPI QR Code**: Enter a UPI ID and the app generates a scannable QR code on the invoice for instant payments via GPay, PhonePe, Paytm, etc.

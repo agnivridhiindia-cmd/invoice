@@ -1,6 +1,6 @@
 import { AGNIVRIDHI_LOGO_BASE64, AGNIVRIDHI_STAMP_BASE64 } from "./assets.js";
 
-// Only the 3 official invoice types requested
+// Official Proforma Invoice definition
 export const INVOICE_TYPES = [
   {
     id: "PROFORMA",
@@ -8,32 +8,10 @@ export const INVOICE_TYPES = [
     shortName: "Proforma",
     title: "Proforma Invoice",
     prefix: "PI",
-    description: "Proforma: Estimate (no paid stamp).",
+    description: "Proforma Invoice: Official estimate with GST billing.",
     defaultGstPercent: 18,
     hasStamp: false,
     hasGst: true
-  },
-  {
-    id: "TAX_INVOICE",
-    name: "Tax Invoice",
-    shortName: "Tax Invoice",
-    title: "Tax Invoice",
-    prefix: "INV",
-    description: "Tax Invoice: Online with 18% GST.",
-    defaultGstPercent: 18,
-    hasStamp: true,
-    hasGst: true
-  },
-  {
-    id: "GST_INVOICE",
-    name: "GST Invoice",
-    shortName: "GST Invoice",
-    title: "GST Invoice",
-    prefix: "INV",
-    description: "GST Invoice: Cash payment without GST.",
-    defaultGstPercent: 0,
-    hasStamp: true,
-    hasGst: false
   }
 ];
 

@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import InvoiceForm from "./components/InvoiceForm.jsx";
 import OfficialInvoicePreview from "./components/OfficialInvoicePreview.jsx";
 import { Printer, Columns2, Edit3, FileCheck2 } from "lucide-react";
-import { INVOICE_TYPES, AGNIVRIDHI_SELLER } from "./utils/constants.js";
 
 const DEFAULT_INVOICE = {
   type: "Proforma Invoice",
-  invoiceNo: `INV-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, "0")}${String(new Date().getDate()).padStart(2, "0")}-001`,
+  invoiceNo: `PI-${new Date().getFullYear()}${String(new Date().getMonth() + 1).padStart(2, "0")}${String(new Date().getDate()).padStart(2, "0")}-001`,
   issueDate: new Date().toISOString().split("T")[0],
   dueDate: "",
   clientName: "",
@@ -19,6 +18,7 @@ const DEFAULT_INVOICE = {
   pan: "",
   email: "",
   mobile: "",
+  showStamp: false,
   services: [
     {
       id: "srv_1",
@@ -47,7 +47,7 @@ export default function App() {
   const handleReset = () => {
     if (window.confirm("Reset invoice form to blank?")) {
       const now = new Date();
-      const freshNo = `INV-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}-${Math.floor(100 + Math.random() * 900)}`;
+      const freshNo = `PI-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}-${Math.floor(100 + Math.random() * 900)}`;
       setInvoice({
         type: "Proforma Invoice",
         invoiceNo: freshNo,
@@ -63,6 +63,7 @@ export default function App() {
         pan: "",
         email: "",
         mobile: "",
+        showStamp: false,
         services: [
           {
             id: "srv_1",
@@ -94,14 +95,14 @@ export default function App() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-extrabold text-gray-900 tracking-tight text-base">
-                  AgniVridhi Invoice Studio
+                  AgniVridhi Proforma Studio
                 </span>
                 <span className="text-[10px] font-bold bg-blue-100 text-blue-800 px-2 py-0.5 rounded-full">
                   Standalone
                 </span>
               </div>
               <p className="text-[11px] text-gray-500">
-                Proforma, Tax & GST Invoices with multi-service dynamic billing
+                Official Proforma Invoices with multi-service dynamic billing
               </p>
             </div>
           </div>

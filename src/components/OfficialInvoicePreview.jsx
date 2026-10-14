@@ -18,8 +18,6 @@ function formatFooterDate(dateStr) {
 
 export default function OfficialInvoicePreview({ invoice }) {
   const type = invoice.type || "Proforma Invoice";
-  const isProforma = type.toLowerCase().includes("proforma");
-  const isGstInvoice = type.toLowerCase().includes("gst") && !type.toLowerCase().includes("tax");
 
   // Multi-service extraction
   // ALL services remain visible on the invoice.
@@ -33,7 +31,7 @@ export default function OfficialInvoicePreview({ invoice }) {
           hsnSac: invoice.hsnSac || "998311",
           quantity: Number(invoice.quantity) || 1,
           rate: Number(invoice.rate) || 0,
-          gstPercent: isGstInvoice ? 0 : Number(invoice.gstPercent) || 18,
+          gstPercent: Number(invoice.gstPercent) || 18,
           showOnInvoice: true,
           includeInTotal: true
         }
@@ -42,8 +40,8 @@ export default function OfficialInvoicePreview({ invoice }) {
   // Salesperson controls which schemes appear on invoice:
   const displayServices = services.filter((s) => s.showOnInvoice !== false);
 
-  // For GST Invoice (cash payment), there is NO GST
-  const hasGst = !isGstInvoice;
+  // Proforma Invoice includes standard GST billing
+  const hasGst = true;
 
   // Sum up totals across displayed services:
   // ONLY services with includeInTotal !== false have their amount added to the invoice total.
@@ -57,7 +55,7 @@ export default function OfficialInvoicePreview({ invoice }) {
       const qty = Number(srv.quantity) || 1;
       const rate = Number(srv.rate) || 0;
       const itemTaxable = qty * rate;
-      const gstPercent = hasGst ? Number(srv.gstPercent !== undefined ? srv.gstPercent : 18) : 0;
+      const gstPercent = Number(srv.gstPercent !== undefined ? srv.gstPercent : 18);
       const itemGst = itemTaxable * (gstPercent / 100);
 
       totalQuantity += qty;
@@ -68,7 +66,7 @@ export default function OfficialInvoicePreview({ invoice }) {
 
   const totalAmount = taxableAmount + totalGst;
 
-  const invoiceNo = invoice.invoiceNo || "INV-20261014-001";
+  const invoiceNo = invoice.invoiceNo || "PI-20261014-001";
   const headerDateStr = formatHeaderDate(invoice.issueDate);
   const footerDateStr = formatFooterDate(invoice.issueDate);
 
@@ -274,7 +272,7 @@ export default function OfficialInvoicePreview({ invoice }) {
         {/* Stamp & Authorised Signatory */}
         <div className="off-stamp-sign-wrap">
           <div className="off-stamp-sign-box">
-            {!isProforma ? (
+            {invoice.showStamp ? (
               <img
                 src={AGNIVRIDHI_SELLER.stamp}
                 alt="AgniVridhi Authorised Signatory Stamp"
