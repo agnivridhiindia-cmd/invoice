@@ -74,10 +74,7 @@ export default function OfficialInvoicePreview({ invoice }) {
   const clientPhone = invoice.mobile || invoice.phone || "";
   const clientEmail = invoice.email || "";
   const clientGstin = invoice.gstin || "";
-  let clientPan = invoice.pan || "";
-  if (!clientPan && clientGstin.length >= 12) {
-    clientPan = clientGstin.substring(2, 12).toUpperCase();
-  }
+  const clientPan = (invoice.pan || "").trim().toUpperCase();
 
   // Format client address with city, state, pincode
   const addrParts = [];

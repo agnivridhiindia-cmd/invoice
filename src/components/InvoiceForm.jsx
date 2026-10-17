@@ -288,7 +288,7 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
           </div>
         </div>
 
-        {/* GSTIN and Mobile */}
+        {/* GSTIN and PAN Number */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="block text-xs font-bold text-gray-800 mb-1">GSTIN</label>
@@ -297,9 +297,25 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
               value={invoice.gstin || ""}
               onChange={(e) => handleChange("gstin", e.target.value.toUpperCase())}
               placeholder="GSTIN (optional)"
+              maxLength={15}
               className="form-input w-full text-xs uppercase font-mono"
             />
           </div>
+          <div>
+            <label className="block text-xs font-bold text-gray-800 mb-1">PAN Number</label>
+            <input
+              type="text"
+              value={invoice.pan || ""}
+              onChange={(e) => handleChange("pan", e.target.value.toUpperCase())}
+              placeholder="PAN Number (optional)"
+              maxLength={10}
+              className="form-input w-full text-xs uppercase font-mono"
+            />
+          </div>
+        </div>
+
+        {/* Mobile and Email */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
             <label className="block text-xs font-bold text-gray-800 mb-1">Mobile</label>
             <input
@@ -307,6 +323,16 @@ export default function InvoiceForm({ invoice, onChangeInvoice, onPrint, onReset
               value={invoice.mobile || ""}
               onChange={(e) => handleChange("mobile", e.target.value)}
               placeholder="Mobile/Phone"
+              className="form-input w-full text-xs"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-bold text-gray-800 mb-1">Email</label>
+            <input
+              type="email"
+              value={invoice.email || ""}
+              onChange={(e) => handleChange("email", e.target.value)}
+              placeholder="Client email address"
               className="form-input w-full text-xs"
             />
           </div>
