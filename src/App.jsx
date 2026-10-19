@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import InvoiceForm from "./components/InvoiceForm.jsx";
 import OfficialInvoicePreview from "./components/OfficialInvoicePreview.jsx";
@@ -95,9 +96,8 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setViewMode("split")}
-                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === "split" ? "bg-white text-indigo-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
-                }`}
+                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${viewMode === "split" ? "bg-white text-indigo-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
+                  }`}
               >
                 <Columns2 size={13} />
                 Split
@@ -105,9 +105,8 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setViewMode("edit")}
-                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === "edit" ? "bg-white text-indigo-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
-                }`}
+                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${viewMode === "edit" ? "bg-white text-indigo-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
+                  }`}
               >
                 <Edit3 size={13} />
                 Form
@@ -115,9 +114,8 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => setViewMode("preview")}
-                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${
-                  viewMode === "preview" ? "bg-white text-indigo-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
-                }`}
+                className={`px-3 py-1 rounded-md transition-all flex items-center gap-1 cursor-pointer ${viewMode === "preview" ? "bg-white text-indigo-700 shadow-xs" : "text-gray-600 hover:text-gray-900"
+                  }`}
               >
                 <FileCheck2 size={13} />
                 A4 PDF
@@ -139,13 +137,12 @@ export default function App() {
       {/* Main Container */}
       <main className="flex-1 p-3 sm:p-6 max-w-[1700px] w-full mx-auto">
         <div
-          className={`grid gap-6 ${
-            viewMode === "split"
-              ? "grid-cols-1 lg:grid-cols-12"
-              : viewMode === "edit"
+          className={`grid gap-6 ${viewMode === "split"
+            ? "grid-cols-1 lg:grid-cols-12"
+            : viewMode === "edit"
               ? "grid-cols-1 max-w-2xl mx-auto"
               : "grid-cols-1 max-w-4xl mx-auto"
-          }`}
+            }`}
         >
           {/* Left Column: The Invoice Details Form */}
           {(viewMode === "split" || viewMode === "edit") && (
